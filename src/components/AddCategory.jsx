@@ -1,19 +1,19 @@
 import React, { useState } from 'react'
+import useRandomColor from '../hooks/useRandomColor'
 
-const AddCategory = ({ setCategories }) => {
+export const AddCategory = ({ onNewCategori }) => {
 
   const [inputValue, setInputValue] = useState('')
-
+  const {color} = useRandomColor()
   const onInputChange = () => {
-    console.log(event.target.value)
     setInputValue(event.target.value)
   }
 
   const onSubmit = () => {
     event.preventDefault()
     if( inputValue.trim().length <= 1) return
-    setCategories( categorie => [...categorie, inputValue])
     setInputValue('')
+    onNewCategori( inputValue.trim() )
   }
 
   return (
@@ -23,9 +23,7 @@ const AddCategory = ({ setCategories }) => {
         placeholder='Buscar gifs'
         value={inputValue}
         onChange={onInputChange}
-      />
+        style={{border: `2px solid ${color}`}}/>
     </form>
   )
 }
-
-export default AddCategory
